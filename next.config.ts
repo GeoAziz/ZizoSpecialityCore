@@ -18,6 +18,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  webpack: (config) => {
+    // This is a workaround for a warning in the build logs:
+    // "Module not found: Can't resolve '@opentelemetry/exporter-jaeger'"
+    // This is an optional dependency of Genkit and is not needed for the app to run.
+    config.externals.push('@opentelemetry/exporter-jaeger');
+    return config;
+  },
 };
 
 export default nextConfig;
